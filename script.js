@@ -43,3 +43,27 @@ document.addEventListener('DOMContentLoaded', function() {
         grid.appendChild(line);
     }
 });
+
+// Platform detection for download button
+function detectPlatform() {
+    const platform = navigator.userAgent.toLowerCase();
+    const isWindows = platform.includes('win');
+    const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(platform);
+    
+    const downloadButton = document.getElementById('download-button');
+    const platformWarning = document.getElementById('platform-warning');
+    
+    if (isWindows && !isMobile) {
+        // Show download button for Windows desktop users
+        downloadButton.classList.remove('hidden');
+        platformWarning.classList.add('hidden');
+    } else {
+        // Hide download button and show warning for non-Windows or mobile users
+        downloadButton.classList.add('hidden');
+        platformWarning.classList.remove('hidden');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    detectPlatform();
+});
